@@ -43,7 +43,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Printf("State: %v\n", out)
+		fmt.Printf("State: %v\n", out.State)
 		time.Sleep(1 * time.Second)
 	}
 
