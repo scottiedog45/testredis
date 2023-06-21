@@ -26,8 +26,7 @@ func main() {
 	io.Copy(os.Stdout, reader)
 
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
-		Image: "alpine",
-		Cmd:   []string{"echo", "hello world"},
+		Image: "localstack/localstack",
 	}, nil, nil, nil, "")
 	if err != nil {
 		panic(err)
