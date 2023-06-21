@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"os"
+	"time"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -34,6 +36,15 @@ func main() {
 
 	if err := cli.ContainerStart(ctx, resp.ID, types.ContainerStartOptions{}); err != nil {
 		panic(err)
+	}
+
+	for {
+		out, err := cli.ContainerInspect(ctx, resp.ID)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("State: %v\n", out)
+		time.Sleep(1 * time.Second)
 	}
 
 	statusCh, errCh := cli.ContainerWait(ctx, resp.ID, container.WaitConditionNotRunning)
